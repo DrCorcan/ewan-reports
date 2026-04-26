@@ -4,16 +4,66 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Body-Mind Reports</title>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 32px;
+      background: #f5f2ec;
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    h1 {
+      font-size: 32px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .card {
+      display: block;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 16px;
+      text-decoration: none;
+      color: #333;
+      font-size: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      transition: all 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    .card-title {
+      font-weight: bold;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: #777;
+      margin-top: 6px;
+    }
+  </style>
 </head>
-<body style="font-family:sans-serif; padding:32px; background:#f5f2ec; font-size:18px; line-height:1.7;">
 
-  <h1 style="font-size:32px;">My Body-Mind Reports</h1>
+<body>
 
-  <h2 style="font-size:24px;">Report List</h2>
+  <h1>My Body-Mind Reports</h1>
 
-  <ul>
-    <li><a href="./baseline/" style="font-size:20px;">Baseline Report</a></li>
-  </ul>
+  <h2>Report List</h2>
+
+  <a href="./baseline/" class="card">
+    <div class="card-title">Baseline Report</div>
+    <div class="card-desc">초기 신체 감각 상태 분석 리포트</div>
+  </a>
 
 </body>
 </html>
