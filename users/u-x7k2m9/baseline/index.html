@@ -1,1 +1,896 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>benz1010101010 · 신체 감각 기록 리포트 · E WAN</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1916;
+    --ink-soft: #4a4844;
+    --ink-muted: #8a8780;
+    --paper: #f5f2ec;
+    --paper-warm: #ede9e0;
+    --paper-dark: #e0dbd0;
+    --accent: #4a6fa5;        /* 파랑 — benz는 파랑 계열 */
+    --accent-light: #7fa0cc;
+    --accent-pale: #e4eaf4;
+    --warm: #b8794a;
+    --warm-pale: #f0e4d8;
+    --red: #a34040;
+    --red-pale: #f4e4e4;
+    --green: #5c7a5c;
+    --green-pale: #dce8dc;
+    --line: rgba(26,25,22,0.10);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--paper); color:var(--ink); font-family:'Noto Sans KR',sans-serif; font-weight:300; line-height:1.8; }
 
+  /* COVER */
+  .cover {
+    min-height:100vh; display:flex; flex-direction:column; justify-content:space-between;
+    padding:64px 80px; background:#0f1a2e; color:var(--paper); position:relative; overflow:hidden;
+  }
+  .cover::before {
+    content:''; position:absolute; top:-120px; right:-120px; width:480px; height:480px;
+    border-radius:50%; background:radial-gradient(circle,rgba(74,111,165,0.2) 0%,transparent 70%);
+  }
+  .cover::after {
+    content:''; position:absolute; bottom:-60px; left:100px; width:280px; height:280px;
+    border-radius:50%; background:radial-gradient(circle,rgba(184,121,74,0.1) 0%,transparent 70%);
+  }
+  .brand { font-family:'DM Mono',monospace; font-size:12px; letter-spacing:0.18em; color:rgba(245,242,236,0.3); text-transform:uppercase; display:flex; align-items:center; gap:10px; }
+  .brand-dot { width:6px; height:6px; border-radius:50%; background:var(--accent-light); display:inline-block; }
+  .cover-label { font-family:'DM Mono',monospace; font-size:11px; letter-spacing:0.14em; color:var(--accent-light); margin-bottom:20px; text-transform:uppercase; }
+  .cover-id { font-family:'DM Mono',monospace; font-size:26px; font-weight:300; color:rgba(245,242,236,0.45); margin-bottom:8px; letter-spacing:0.05em; }
+  .cover-title { font-family:'Noto Serif KR',serif; font-size:clamp(36px,5vw,64px); font-weight:300; line-height:1.15; margin-bottom:28px; letter-spacing:-0.02em; }
+  .cover-title em { font-style:normal; color:var(--accent-light); }
+  .cover-subtitle { font-size:14px; color:rgba(245,242,236,0.4); line-height:2; max-width:400px; }
+  .cover-stats { display:flex; gap:44px; margin-top:52px; }
+  .cs-num { font-family:'DM Mono',monospace; font-size:32px; font-weight:300; line-height:1; }
+  .cs-label { font-size:11px; color:rgba(245,242,236,0.35); margin-top:5px; letter-spacing:0.05em; }
+
+  /* 주목 배너 */
+  .cover-banner {
+    background:rgba(74,111,165,0.15); border:1px solid rgba(74,111,165,0.3);
+    border-radius:8px; padding:14px 20px; margin-top:28px; max-width:460px;
+    font-size:13px; color:rgba(245,242,236,0.65); line-height:1.8;
+  }
+  .cover-banner strong { color:var(--accent-light); font-weight:400; }
+
+  .cover-meta { display:flex; justify-content:space-between; font-family:'DM Mono',monospace; font-size:10px; color:rgba(245,242,236,0.22); letter-spacing:0.08em; }
+
+  /* PAGE */
+  .page { max-width:920px; margin:0 auto; padding:80px; }
+  @media(max-width:700px){ .cover{padding:40px 28px;} .page{padding:48px 24px;} }
+
+  /* SECTIONS */
+  .section { margin-bottom:84px; }
+  .section-header { display:flex; align-items:baseline; gap:14px; margin-bottom:34px; padding-bottom:14px; border-bottom:1px solid var(--line); }
+  .section-num { font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-muted); letter-spacing:0.12em; }
+  .section-title { font-family:'Noto Serif KR',serif; font-size:21px; font-weight:400; }
+  .section-sub { font-size:12px; color:var(--ink-muted); margin-left:auto; font-family:'DM Mono',monospace; }
+  p.lead { font-size:14px; color:var(--ink-soft); line-height:1.95; margin-bottom:28px; }
+
+  /* BASELINE CARDS */
+  .bl-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:20px; }
+  @media(max-width:700px){ .bl-grid{grid-template-columns:1fr;} }
+  .bl-card { background:var(--paper-warm); border-radius:10px; padding:20px 22px; border-left:3px solid var(--paper-dark); position:relative; }
+  .bl-card.confirmed { border-left-color:var(--green); }
+  .bl-card.contrast  { border-left-color:var(--warm); }
+  .bl-card.watch     { border-left-color:var(--red); }
+  .bl-card.info      { border-left-color:var(--accent); }
+  .bl-badge { position:absolute; top:14px; right:14px; font-family:'DM Mono',monospace; font-size:9px; padding:3px 8px; border-radius:20px; letter-spacing:0.06em; }
+  .bl-badge.c { background:var(--green-pale); color:var(--green); }
+  .bl-badge.w { background:var(--warm-pale); color:var(--warm); }
+  .bl-badge.r { background:var(--red-pale); color:var(--red); }
+  .bl-badge.b { background:var(--accent-pale); color:var(--accent); }
+  .bl-q { font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-muted); letter-spacing:0.08em; margin-bottom:6px; }
+  .bl-before { font-size:13px; color:var(--ink-soft); margin-bottom:9px; line-height:1.7; }
+  .bl-before strong { font-weight:500; color:var(--ink); }
+  .bl-arrow { font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-muted); margin-bottom:5px; }
+  .bl-after { font-size:13px; color:var(--ink); line-height:1.75; }
+  .bl-after em { font-style:normal; font-weight:500; }
+  .bl-after em.g { color:var(--green); }
+  .bl-after em.w { color:var(--warm); }
+  .bl-after em.r { color:var(--red); }
+  .bl-after em.b { color:var(--accent); }
+
+  /* PROFILE STRIP */
+  .profile-strip { background:var(--paper-warm); border-radius:8px; padding:18px 22px; display:flex; gap:28px; flex-wrap:wrap; margin-top:14px; }
+  .ps-item {}
+  .ps-label { font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-muted); letter-spacing:0.1em; margin-bottom:3px; }
+  .ps-val { font-size:13px; color:var(--ink-soft); }
+  .ps-val.warn { color:var(--red); }
+  .ps-val.ok { color:var(--green); }
+
+  /* ATTENDANCE */
+  .att-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:7px; }
+  .day-label { font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-muted); text-align:center; }
+  .att-day { aspect-ratio:1; border-radius:5px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2px; }
+  .att-day.done    { background:var(--accent); color:var(--paper); }
+  .att-day.flagged { background:var(--red); color:var(--paper); }
+  .att-day.missed  { background:var(--paper-dark); color:var(--ink-muted); }
+  .att-day.future  { border:1px dashed var(--line); color:var(--ink-muted); opacity:.4; }
+  .ad { font-family:'DM Mono',monospace; font-size:12px; }
+  .at { font-size:9px; opacity:.75; font-family:'DM Mono',monospace; }
+  .att-legend { display:flex; gap:18px; font-size:12px; color:var(--ink-soft); margin-top:10px; }
+  .ldot { display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:5px; vertical-align:middle; }
+  .att-summary { background:var(--paper-warm); border-radius:8px; padding:18px 22px; margin-top:18px; display:flex; gap:36px; flex-wrap:wrap; }
+  .as-num { font-family:'DM Mono',monospace; font-size:26px; font-weight:300; line-height:1; }
+  .as-label { font-size:11px; color:var(--ink-muted); margin-top:4px; }
+
+  /* REGION BARS */
+  .body-grid { display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start; }
+  @media(max-width:700px){ .body-grid{grid-template-columns:1fr;} }
+  .region-item { display:flex; align-items:center; padding:11px 0; border-bottom:1px solid var(--line); gap:12px; }
+  .region-name { font-size:13px; color:var(--ink-soft); width:126px; flex-shrink:0; }
+  .region-bar-wrap { flex:1; height:6px; background:var(--paper-dark); border-radius:3px; overflow:hidden; }
+  .region-bar { height:100%; border-radius:3px; background:var(--accent); }
+  .region-count { font-family:'DM Mono',monospace; font-size:11px; color:var(--ink-muted); width:22px; text-align:right; }
+  .body-insight { background:var(--accent-pale); border-radius:10px; padding:24px; }
+  .insight-title { font-family:'Noto Serif KR',serif; font-size:13px; color:var(--accent); margin-bottom:12px; }
+  .insight-item { font-size:13px; color:var(--ink-soft); line-height:1.9; margin-bottom:10px; padding-left:12px; border-left:2px solid var(--accent-light); }
+
+  /* LR */
+  .lr-wrap { margin-top:24px; }
+  .lr-title { font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-muted); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:14px; }
+  .lr-row { display:flex; align-items:center; gap:12px; margin-bottom:8px; }
+  .lr-label { font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-muted); width:70px; text-align:right; flex-shrink:0; }
+  .lr-bar-l { flex:1; height:9px; background:var(--paper-dark); border-radius:2px; display:flex; justify-content:flex-end; overflow:hidden; }
+  .lr-bar-r { flex:1; height:9px; background:var(--paper-dark); border-radius:2px; overflow:hidden; }
+  .lr-fill-l { height:100%; background:var(--warm); }
+  .lr-fill-r { height:100%; background:var(--accent); }
+  .lr-center { width:54px; text-align:center; font-family:'DM Mono',monospace; font-size:9px; color:var(--ink-muted); flex-shrink:0; }
+
+  /* TIMELINE */
+  .tl-legend { display:flex; gap:18px; margin-top:12px; font-size:12px; color:var(--ink-soft); flex-wrap:wrap; }
+
+  /* SESSION CARDS */
+  .session-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:9px; }
+  @media(max-width:700px){ .session-grid{grid-template-columns:1fr 1fr;} }
+  .sc { background:var(--paper-warm); border-radius:8px; padding:14px; border:1px solid transparent; }
+  .sc.flagged-card { border-color:rgba(163,64,64,0.3); opacity:.8; }
+  .sc-hd { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:7px; }
+  .sc-num { font-family:'DM Mono',monospace; font-size:9px; color:var(--ink-muted); letter-spacing:0.1em; }
+  .sc-date { font-family:'DM Mono',monospace; font-size:9px; color:var(--ink-muted); }
+  .sc-region { font-size:12px; font-weight:500; color:var(--ink); margin-bottom:4px; }
+  .sc-attention { font-size:10px; color:var(--ink-muted); font-family:'DM Mono',monospace; margin-bottom:5px; }
+  .sc-dots { display:flex; gap:3px; margin-bottom:5px; }
+  .sc-dot { width:7px; height:7px; border-radius:50%; }
+  .sc-dot.f { background:var(--accent); }
+  .sc-dot.e { background:var(--paper-dark); }
+  .sc-lr { font-size:10px; font-family:'DM Mono',monospace; margin-bottom:5px; }
+  .sc-lr.left { color:var(--warm); }
+  .sc-lr.right { color:var(--accent); }
+  .sc-lr.equal { color:var(--ink-muted); }
+  .sc-note { font-size:11px; color:var(--ink-soft); font-style:italic; line-height:1.6; border-left:2px solid var(--paper-dark); padding-left:8px; margin-top:6px; }
+  .sc-flag { display:inline-block; font-size:9px; background:var(--red-pale); color:var(--red); padding:2px 7px; border-radius:20px; margin-top:4px; font-family:'DM Mono',monospace; }
+  .sc-extra { font-size:10px; color:var(--accent); font-family:'DM Mono',monospace; margin-top:5px; }
+
+  /* EXTRA QUESTIONS HIGHLIGHT */
+  .extra-box { background:var(--accent-pale); border-radius:10px; padding:28px; margin-top:0; }
+  .extra-title { font-family:'Noto Serif KR',serif; font-size:14px; color:var(--accent); margin-bottom:18px; }
+  .extra-row { display:flex; align-items:flex-start; gap:12px; margin-bottom:14px; padding-bottom:14px; border-bottom:1px solid rgba(74,111,165,0.15); }
+  .extra-row:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .extra-q { font-family:'DM Mono',monospace; font-size:10px; color:var(--accent); width:64px; flex-shrink:0; padding-top:2px; letter-spacing:0.06em; }
+  .extra-content { flex:1; }
+  .extra-label { font-size:12px; color:var(--ink-soft); margin-bottom:4px; }
+  .extra-bars { display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+  .extra-bar { height:6px; border-radius:3px; }
+  .extra-val { font-family:'DM Mono',monospace; font-size:11px; color:var(--ink-muted); }
+  .extra-note { font-size:12px; color:var(--ink-soft); font-style:italic; margin-top:4px; line-height:1.7; }
+
+  /* NOTES */
+  .notes-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media(max-width:700px){ .notes-grid{grid-template-columns:1fr;} }
+  .note-card { background:var(--paper-warm); border-radius:8px; padding:16px 18px; }
+  .note-card.hi { background:var(--accent-pale); border:1px solid var(--accent-light); }
+  .note-card.watch { background:var(--red-pale); border:1px solid rgba(163,64,64,0.25); }
+  .note-seq { font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-muted); margin-bottom:6px; letter-spacing:0.08em; }
+  .note-text { font-family:'Noto Serif KR',serif; font-size:14px; font-weight:300; line-height:1.9; }
+  .note-meta { font-family:'DM Mono',monospace; font-size:10px; color:var(--accent); margin-top:7px; }
+
+  /* CLUSTER */
+  .cluster-intro { background:#0f1a2e; color:var(--paper); border-radius:12px; padding:34px 38px; margin-bottom:24px; }
+  .ci-title { font-family:'DM Mono',monospace; font-size:10px; color:rgba(245,242,236,.3); letter-spacing:.14em; text-transform:uppercase; margin-bottom:8px; }
+  .ci-text { font-size:14px; color:rgba(245,242,236,.65); line-height:1.9; }
+  .ci-text em { font-style:normal; color:var(--accent-light); }
+
+  .cluster-cards { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  @media(max-width:700px){ .cluster-cards{grid-template-columns:1fr;} }
+  .cc { border-radius:12px; padding:26px; border:1px solid var(--line); background:var(--paper-warm); position:relative; }
+  .cc.you { border:2px solid var(--accent); background:var(--accent-pale); }
+  .cc-type-label { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.12em; margin-bottom:5px; }
+  .cc-name { font-family:'Noto Serif KR',serif; font-size:17px; font-weight:400; margin-bottom:4px; }
+  .cc-members { font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-muted); margin-bottom:14px; }
+  .cc-you-badge { display:inline-block; font-size:9px; font-family:'DM Mono',monospace; padding:2px 9px; border-radius:20px; margin-left:6px; background:var(--accent-pale); color:var(--accent); }
+  .cc-row { display:flex; align-items:center; gap:9px; margin-bottom:8px; }
+  .cc-label { font-size:11px; color:var(--ink-muted); width:76px; flex-shrink:0; font-family:'DM Mono',monospace; }
+  .cc-bar-wrap { flex:1; height:5px; background:var(--paper-dark); border-radius:3px; overflow:hidden; }
+  .cc-bar { height:100%; border-radius:3px; }
+  .cc-val { font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-muted); width:26px; text-align:right; }
+  .cc-desc { font-size:12px; color:var(--ink-soft); line-height:1.8; margin-top:12px; padding-top:12px; border-top:1px solid var(--line); }
+
+  /* PATTERN BOX */
+  .pattern-box { background:#0f1a2e; color:var(--paper); border-radius:12px; padding:42px; }
+  .pb-title { font-family:'DM Mono',monospace; font-size:10px; color:rgba(245,242,236,.28); letter-spacing:.14em; text-transform:uppercase; margin-bottom:26px; }
+  .pb-grid { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  @media(max-width:700px){ .pb-grid{grid-template-columns:1fr;} }
+  .pb-label { font-family:'DM Mono',monospace; font-size:10px; color:rgba(245,242,236,.28); letter-spacing:.12em; text-transform:uppercase; margin-bottom:5px; }
+  .pb-value { font-family:'Noto Serif KR',serif; font-size:15px; font-weight:300; line-height:1.7; }
+  .pb-value em { font-style:normal; color:var(--accent-light); }
+  .pb-value em.w { color:#f0b87a; }
+
+  /* FOOTER */
+  .report-footer { margin-top:64px; padding-top:26px; border-top:1px solid var(--line); display:flex; justify-content:space-between; font-family:'DM Mono',monospace; font-size:10px; color:var(--ink-muted); letter-spacing:.08em; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="brand"><span class="brand-dot"></span>신체감각인식패턴연구 &nbsp;·&nbsp; E WAN</div>
+
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;padding:44px 0;">
+    <div class="cover-label">개인 감각 기록 리포트 · Baseline Phase</div>
+    <div class="cover-id">benz1010101010</div>
+    <h1 class="cover-title">
+      몸이 남긴<br>
+      <em>10일간의</em><br>
+      기록
+    </h1>
+    <p class="cover-subtitle">
+      이것은 평가가 아닙니다.<br>
+      8회의 기록에서 당신 몸만의<br>
+      패턴을 그대로 보여드립니다.
+    </p>
+
+    <div class="cover-banner">
+      이 리포트에서 주목할 것: <strong>다리가 기울어진다 → 돌아온다.</strong><br>
+      8회 동안 당신의 몸이 스스로 기록한 가장 일관된 이야기입니다.
+    </div>
+
+    <div class="cover-stats">
+      <div><div class="cs-num">8</div><div class="cs-label">총 세션</div></div>
+      <div><div class="cs-num">04:12</div><div class="cs-label">평균 수행 시각</div></div>
+      <div><div class="cs-num">7/8</div><div class="cs-label">추가 문항 응답</div></div>
+    </div>
+  </div>
+
+  <div class="cover-meta">
+    <span>2026.04.26 &nbsp;·&nbsp; Confidential</span>
+    <span>신체감각인식패턴연구 E WAN · 풍림전자주식회사</span>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="page">
+
+  <!-- 00. 시작 전 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">00</span>
+      <h2 class="section-title">연구 시작 전, 당신은 이런 분이셨습니다</h2>
+    </div>
+    <p class="lead">기초 설문 응답과 8회 실제 데이터를 나란히 놓았습니다. 예측과 실제가 어떻게 달랐는지를 보여드립니다.</p>
+
+    <div class="bl-grid">
+
+      <div class="bl-card contrast">
+        <div class="bl-badge w">흥미로운 대조</div>
+        <div class="bl-q">Q10 · 평소 신체 인식</div>
+        <div class="bl-before">스스로: <strong>"보통이다"</strong></div>
+        <div class="bl-arrow">↓ 8회 후 실제</div>
+        <div class="bl-after">5회차부터 <em class="b">뚜렷하게</em> 느껴짐.<br>스스로 '보통'이라 했지만, 데이터는 더 높았습니다.</div>
+      </div>
+
+      <div class="bl-card watch">
+        <div class="bl-badge r">주목 포인트</div>
+        <div class="bl-q">Q7 · 반복 불편 부위 + Q7-2 강도</div>
+        <div class="bl-before">스스로: <strong>"목, 등/허리 — 강도 4/5"</strong></div>
+        <div class="bl-arrow">↓ 8회 후 실제</div>
+        <div class="bl-after">세션 중 목/어깨 <em class="r">3회 등장</em>.<br>8회차엔 만성통증 악화로 Q0 플래그.<br>불편 부위가 데이터에 직접 반영됨.</div>
+      </div>
+
+      <div class="bl-card confirmed">
+        <div class="bl-badge c">데이터로 확인됨</div>
+        <div class="bl-q">Q12 · 주의를 두면 감각이 확장되는가</div>
+        <div class="bl-before">스스로: <strong>"가끔 있다"</strong></div>
+        <div class="bl-arrow">↓ 8회 실제 추가3 응답</div>
+        <div class="bl-after">7회 중 <em class="g">4회</em>에서 "처음엔 좁다가 나중엔 넓어짐" 경험.<br>본인 예측보다 확장 경험이 더 많았습니다.</div>
+      </div>
+
+      <div class="bl-card info">
+        <div class="bl-badge b">기준선</div>
+        <div class="bl-q">Q13 · 평소 긴장 / Q17 수면</div>
+        <div class="bl-before">스스로: <strong>"약간 긴장됨 / 수면 다소 나쁨"</strong></div>
+        <div class="bl-arrow">↓ 세션 시작 전 실제</div>
+        <div class="bl-after">8회 중 5회 <em class="b">'약간 편안'</em>으로 시작.<br>수면이 나빠도 기상 직후 세션 상태는 양호했습니다.</div>
+      </div>
+
+    </div>
+
+    <div class="profile-strip">
+      <div class="ps-item"><div class="ps-label">프로필</div><div class="ps-val">60대 이상 · 남성</div></div>
+      <div class="ps-item"><div class="ps-label">자세 패턴</div><div class="ps-val warn">1시간 이상 정자세 매우 많음</div></div>
+      <div class="ps-item"><div class="ps-label">불편 부위</div><div class="ps-val warn">목 · 등/허리 (강도 4/5, 1개월 이하)</div></div>
+      <div class="ps-item"><div class="ps-label">바디워크</div><div class="ps-val">명상·호흡 정기적 · 요가/소마틱 몇 번</div></div>
+      <div class="ps-item"><div class="ps-label">수면·피로</div><div class="ps-val warn">다소 나쁨 / 다소 피로</div></div>
+    </div>
+  </div>
+
+  <!-- 01. 출석 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">언제 하셨나요</h2>
+      <span class="section-sub">04.13 – 04.23</span>
+    </div>
+    <p class="lead">10일 중 8일 완료. 모두 새벽 4시대에 하셨습니다. 가장 이른 시각입니다.<br>
+    8회차는 만성통증 악화가 있던 날이었지만 세션을 진행하셨습니다.</p>
+
+    <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:7px;margin-bottom:8px;">
+      <div class="day-label">일</div><div class="day-label">월</div><div class="day-label">화</div>
+      <div class="day-label">수</div><div class="day-label">목</div><div class="day-label">금</div><div class="day-label">토</div>
+    </div>
+    <div class="att-grid">
+      <!-- 4/13 일 -->
+      <div class="att-day done"><div class="ad">13</div><div class="at">04시</div></div>
+      <div class="att-day done"><div class="ad">14</div><div class="at">05시</div></div>
+      <div class="att-day done"><div class="ad">15</div><div class="at">05시</div></div>
+      <div class="att-day done"><div class="ad">16</div><div class="at">04시</div></div>
+      <div class="att-day done"><div class="ad">17</div><div class="at">04시</div></div>
+      <div class="att-day done"><div class="ad">18</div><div class="at">04시</div></div>
+      <div class="att-day missed"><div class="ad">19</div></div>
+      <div class="att-day missed"><div class="ad">20</div></div>
+      <div class="att-day missed"><div class="ad">21</div></div>
+      <div class="att-day done"><div class="ad">22</div><div class="at">04시</div></div>
+      <div class="att-day flagged"><div class="ad">23</div><div class="at">04시</div></div>
+      <div class="att-day future"><div class="ad">24</div></div>
+      <div class="att-day future"><div class="ad">25</div></div>
+      <div class="att-day future"><div class="ad">26</div></div>
+    </div>
+    <div class="att-legend" style="margin-top:10px;">
+      <span><span class="ldot" style="background:var(--accent)"></span>완료</span>
+      <span><span class="ldot" style="background:var(--red)"></span>완료 (Q0 특이사항)</span>
+      <span><span class="ldot" style="background:var(--paper-dark)"></span>미기록</span>
+      <span><span class="ldot" style="background:transparent;border:1px dashed var(--line)"></span>이후</span>
+    </div>
+    <div class="att-summary">
+      <div><div class="as-num">8/10</div><div class="as-label">완료율 80%</div></div>
+      <div><div class="as-num">04:12</div><div class="as-label">평균 수행 시각</div></div>
+      <div><div class="as-num">1</div><div class="as-label">Q0 플래그 (만성통증)</div></div>
+      <div><div class="as-num">7/8</div><div class="as-label">추가 문항 응답</div></div>
+    </div>
+  </div>
+
+  <!-- 02. 감각 지도 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">감각은 어디에서 느껴졌나요</h2>
+    </div>
+    <p class="lead">8회 세션에서 느껴진 부위를 신체 지도와 수치로 함께 보여드립니다. 다리/발이 압도적입니다.</p>
+
+    <div style="display:grid;grid-template-columns:260px 1fr;gap:40px;align-items:start;margin-bottom:32px;">
+
+      <!-- 남성 신체 지도 -->
+      <div>
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;text-align:center;">감각 히트맵</div>
+        <style>
+          @keyframes benz-hot { 0%,100%{opacity:0.62} 50%{opacity:0.84} }
+          @keyframes benz-mid { 0%,100%{opacity:0.28} 50%{opacity:0.46} }
+          @keyframes benz-lr  { 0%,50%{opacity:0.52} 25%,75%{opacity:0.28} }
+          .bz-h { animation:benz-hot 2.6s ease-in-out infinite; }
+          .bz-m { animation:benz-mid 3.2s ease-in-out infinite 0.5s; }
+          .bz-lr{ animation:benz-lr  4s ease-in-out infinite; }
+        </style>
+        <svg width="100%" viewBox="0 0 260 580" role="img" aria-label="benz1010101010 남성 신체 감각 지도">
+          <defs>
+            <clipPath id="benz-clip">
+              <!-- 머리 (남성 — 조금 더 각진) -->
+              <ellipse cx="130" cy="48" rx="27" ry="30"/>
+              <!-- 목 -->
+              <rect x="121" y="76" width="18" height="22"/>
+              <!-- 몸통 (남성 — 어깨 넓고 허리 직선적) -->
+              <path d="M92 96 C74 102,64 116,62 138 L58 200 C56 218,62 230,74 236 C80 240,82 250,80 266 L78 300 C76 318,88 330,106 334 L108 344 L152 344 L154 334 C172 330,184 318,182 300 L180 266 C178 250,180 240,186 236 C198 230,204 218,202 200 L198 138 C196 116,186 102,168 96 C156 90,144 88,130 88 C116 88,104 90,92 96 Z"/>
+              <!-- 왼팔 (남성 — 굵고 직선적) -->
+              <path d="M72 102 C58 108,46 124,42 148 L34 230 C32 244,38 256,50 260 L60 264 C70 266,76 260,78 248 L86 186 L86 112 Z"/>
+              <!-- 오른팔 -->
+              <path d="M188 102 C202 108,214 124,218 148 L226 230 C228 244,222 256,210 260 L200 264 C190 266,184 260,182 248 L174 186 L174 112 Z"/>
+              <!-- 왼손 -->
+              <ellipse cx="50" cy="272" rx="13" ry="18"/>
+              <!-- 오른손 -->
+              <ellipse cx="210" cy="272" rx="13" ry="18"/>
+              <!-- 왼 허벅지/종아리 (남성 — 좀 더 직선적) -->
+              <path d="M108 344 L100 440 C98 456,104 468,116 472 L132 472 C140 466,142 456,140 440 L132 344 Z"/>
+              <!-- 오른 허벅지/종아리 -->
+              <path d="M128 344 L120 440 C118 456,124 468,136 472 L152 472 C160 466,162 456,160 440 L152 344 Z"/>
+              <!-- 왼발 -->
+              <path d="M98 466 C94 480,96 492,106 496 L136 496 C140 490,138 478,132 466 Z"/>
+              <!-- 오른발 -->
+              <path d="M118 466 C114 478,116 490,126 496 L156 496 C162 490,160 478,156 466 Z"/>
+            </clipPath>
+          </defs>
+
+          <!-- 히트맵 레이어 -->
+          <g clip-path="url(#benz-clip)">
+            <rect x="0" y="0" width="260" height="580" fill="#e4eaf4"/>
+
+            <!-- 다리/발 8회 — 최고 (전 회차) -->
+            <ellipse cx="116" cy="408" rx="22" ry="60" fill="#4a6fa5" class="bz-h" opacity="0.75"/>
+            <ellipse cx="140" cy="408" rx="22" ry="60" fill="#4a6fa5" class="bz-h" opacity="0.75"/>
+            <ellipse cx="114" cy="482" rx="18" ry="14" fill="#4a6fa5" opacity="0.60"/>
+            <ellipse cx="138" cy="482" rx="18" ry="14" fill="#4a6fa5" opacity="0.60"/>
+
+            <!-- 팔/손 5회 -->
+            <ellipse cx="58"  cy="190" rx="16" ry="50" fill="#4a6fa5" class="bz-m" opacity="0.42"/>
+            <ellipse cx="202" cy="190" rx="16" ry="50" fill="#4a6fa5" class="bz-m" opacity="0.42"/>
+            <ellipse cx="50"  cy="272" rx="12" ry="16" fill="#4a6fa5" opacity="0.32"/>
+            <ellipse cx="210" cy="272" rx="12" ry="16" fill="#4a6fa5" opacity="0.32"/>
+
+            <!-- 목/어깨 4회 -->
+            <ellipse cx="130" cy="106" rx="58" ry="16" fill="#4a6fa5" class="bz-m" opacity="0.38"/>
+
+            <!-- 골반 4회 -->
+            <ellipse cx="130" cy="296" rx="46" ry="22" fill="#4a6fa5" class="bz-m" opacity="0.36"/>
+
+            <!-- 전체적 2회 -->
+            <ellipse cx="130" cy="200" rx="50" ry="60" fill="#4a6fa5" opacity="0.08"/>
+
+            <!-- 머리/얼굴 1회 -->
+            <ellipse cx="130" cy="48" rx="24" ry="28" fill="#4a6fa5" opacity="0.14"/>
+
+            <!-- 좌우 번갈아 — 시각적 표현 (왼쪽 amber, 오른쪽 blue 투명 레이어) -->
+            <ellipse cx="100" cy="408" rx="14" ry="50" fill="#b8794a" class="bz-lr" opacity="0.30"/>
+            <ellipse cx="148" cy="408" rx="14" ry="50" fill="#4a6fa5" class="bz-lr" opacity="0.22" style="animation-delay:2s"/>
+          </g>
+
+          <!-- 실루엣 외곽선 — 눈코입 없음 -->
+          <!-- 머리 (남성 — 약간 각진) -->
+          <ellipse cx="130" cy="48" rx="27" ry="30" fill="none" stroke="#1a1916" stroke-width="1.3" opacity="0.50"/>
+          <!-- 목 -->
+          <line x1="122" y1="77" x2="122" y2="96" stroke="#1a1916" stroke-width="1.2" opacity="0.38"/>
+          <line x1="138" y1="77" x2="138" y2="96" stroke="#1a1916" stroke-width="1.2" opacity="0.38"/>
+          <!-- 몸통 (어깨 넓고 직선적) -->
+          <path d="M92 96 C74 102,64 116,62 138 L58 200 C56 218,62 230,74 236 C80 240,82 250,80 266 L78 300 C76 318,88 330,106 334 L108 344 L152 344 L154 334 C172 330,184 318,182 300 L180 266 C178 250,180 240,186 236 C198 230,204 218,202 200 L198 138 C196 116,186 102,168 96 C156 90,144 88,130 88 C116 88,104 90,92 96 Z" fill="none" stroke="#1a1916" stroke-width="1.3" opacity="0.50"/>
+          <!-- 왼팔 -->
+          <path d="M72 102 C58 108,46 124,42 148 L34 230 C32 244,38 256,50 260 L60 264 C70 266,76 260,78 248 L86 186 L86 112" fill="none" stroke="#1a1916" stroke-width="1.3" opacity="0.50"/>
+          <!-- 오른팔 -->
+          <path d="M188 102 C202 108,214 124,218 148 L226 230 C228 244,222 256,210 260 L200 264 C190 266,184 260,182 248 L174 186 L174 112" fill="none" stroke="#1a1916" stroke-width="1.3" opacity="0.50"/>
+          <!-- 왼손 -->
+          <ellipse cx="50" cy="272" rx="13" ry="17" fill="none" stroke="#1a1916" stroke-width="1.1" opacity="0.45"/>
+          <!-- 오른손 -->
+          <ellipse cx="210" cy="272" rx="13" ry="17" fill="none" stroke="#1a1916" stroke-width="1.1" opacity="0.45"/>
+          <!-- 왼다리 -->
+          <path d="M108 344 L100 440 C98 456,104 468,116 472 L132 472 C140 466,142 456,140 440 L132 344 Z" fill="none" stroke="#1a1916" stroke-width="1.3" opacity="0.50"/>
+          <!-- 오른다리 -->
+          <path d="M128 344 L120 440 C118 456,124 468,136 472 L152 472 C160 466,162 456,160 440 L152 344 Z" fill="none" stroke="#1a1916" stroke-width="1.3" opacity="0.50"/>
+          <!-- 왼발 -->
+          <path d="M98 466 C94 480,96 492,106 496 L136 496 C140 490,138 478,132 466 Z" fill="none" stroke="#1a1916" stroke-width="1.1" opacity="0.46"/>
+          <!-- 오른발 -->
+          <path d="M118 466 C114 478,116 490,126 496 L156 496 C162 490,160 478,156 466 Z" fill="none" stroke="#1a1916" stroke-width="1.1" opacity="0.46"/>
+
+          <!-- 라벨 -->
+          <line x1="155" y1="34" x2="178" y2="26" stroke="#8a8780" stroke-width="0.5" stroke-dasharray="3,2"/>
+          <text x="181" y="22" font-family="'DM Mono',monospace" font-size="10" fill="#4a4844">머리/얼굴</text>
+          <text x="181" y="34" font-family="'DM Mono',monospace" font-size="9"  fill="#8a8780">1회</text>
+
+          <line x1="188" y1="108" x2="200" y2="100" stroke="#8a8780" stroke-width="0.5" stroke-dasharray="3,2"/>
+          <text x="203" y="97" font-family="'DM Mono',monospace" font-size="10" fill="#4a4844">목/어깨</text>
+          <text x="203" y="109" font-family="'DM Mono',monospace" font-size="9"  fill="#8a8780">4회</text>
+
+          <line x1="40" y1="192" x2="18" y2="184" stroke="#8a8780" stroke-width="0.5" stroke-dasharray="3,2"/>
+          <text x="2"  y="181" font-family="'DM Mono',monospace" font-size="10" fill="#4a4844">팔/손</text>
+          <text x="2"  y="193" font-family="'DM Mono',monospace" font-size="9"  fill="#8a8780">5회</text>
+
+          <line x1="178" y1="296" x2="196" y2="288" stroke="#8a8780" stroke-width="0.5" stroke-dasharray="3,2"/>
+          <text x="199" y="285" font-family="'DM Mono',monospace" font-size="10" fill="#4a4844">골반</text>
+          <text x="199" y="297" font-family="'DM Mono',monospace" font-size="9"  fill="#8a8780">4회</text>
+
+          <line x1="98" y1="412" x2="18" y2="398" stroke="#4a6fa5" stroke-width="0.9" stroke-dasharray="3,2"/>
+          <text x="2"  y="395" font-family="'DM Mono',monospace" font-size="10" font-weight="500" fill="#4a6fa5">다리/발</text>
+          <text x="2"  y="407" font-family="'DM Mono',monospace" font-size="9"  fill="#7fa0cc">8회 ★</text>
+        </svg>
+      </div>
+
+      <!-- 수치 + 인사이트 -->
+      <div style="display:flex;flex-direction:column;gap:16px;">
+
+        <!-- 부위별 바 -->
+        <div>
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;">부위별 빈도</div>
+          <div class="region-item"><div class="region-name">다리 / 발</div><div class="region-bar-wrap"><div class="region-bar" style="width:100%"></div></div><div class="region-count">8</div></div>
+          <div class="region-item"><div class="region-name">팔 / 손</div><div class="region-bar-wrap"><div class="region-bar" style="width:62%"></div></div><div class="region-count">5</div></div>
+          <div class="region-item"><div class="region-name">목 / 어깨</div><div class="region-bar-wrap"><div class="region-bar" style="width:50%"></div></div><div class="region-count">4</div></div>
+          <div class="region-item"><div class="region-name">골반</div><div class="region-bar-wrap"><div class="region-bar" style="width:50%"></div></div><div class="region-count">4</div></div>
+          <div class="region-item"><div class="region-name">전체적으로</div><div class="region-bar-wrap"><div class="region-bar" style="width:25%"></div></div><div class="region-count">2</div></div>
+          <div class="region-item"><div class="region-name">머리 / 얼굴</div><div class="region-bar-wrap"><div class="region-bar" style="width:12%"></div></div><div class="region-count">1</div></div>
+        </div>
+
+        <!-- 인사이트 -->
+        <div class="body-insight">
+          <div class="insight-title">이 기록에서 보이는 것</div>
+          <div class="insight-item">다리/발이 8회 전부 등장했습니다. 다른 참여자에게 없는 패턴입니다. 하체가 이 분의 주요 감각 안테나입니다.</div>
+          <div class="insight-item">목/어깨 4회 — 기초 설문의 불편 부위(목, 등/허리)가 그대로 감각 데이터에 반영됐습니다.</div>
+          <div class="insight-item">'전체적으로'는 단 2회. ytkim1004(6회)와 대조적으로 특정 부위에 집중되는 경향입니다.</div>
+        </div>
+
+        <!-- 좌우 비대칭 — 핵심 패턴 -->
+        <div style="background:var(--paper-warm);border-radius:8px;padding:18px 20px;border-top:2px solid var(--warm);">
+          <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--warm);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;">이 리포트의 핵심 패턴 — 좌우 비대칭</div>
+          <div style="font-size:13px;color:var(--ink-soft);line-height:1.9;margin-bottom:12px;">
+            8회 중 <strong>왼쪽 강함 3회 / 균형 2회 / 오른쪽 강함 3회</strong>.<br>
+            방향이 고정되지 않고 매일 번갈아 달라졌습니다.
+          </div>
+          <div class="lr-row">
+            <div class="lr-label">왼쪽 강함</div>
+            <div class="lr-bar-l"><div class="lr-fill-l" style="width:100%"></div></div>
+            <div class="lr-center">3 / 2 / 3</div>
+            <div class="lr-bar-r"><div class="lr-fill-r" style="width:100%"></div></div>
+            <div class="lr-label" style="text-align:left;">오른쪽 강함</div>
+          </div>
+          <div style="font-size:11px;color:var(--ink-muted);text-align:center;margin-top:8px;font-family:'DM Mono',monospace;letter-spacing:0.05em;">
+            1~3회 왼쪽 · 4회 오른쪽 · 5회 왼쪽 · 6~8회 오른쪽
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 03. 변화 흐름 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">8회 동안 어떻게 달라졌나요</h2>
+    </div>
+    <p class="lead">감각 선명도는 초반 '보통'에서 5회차부터 '뚜렷'으로 전환됐습니다. 딴생각은 전반적으로 낮았습니다 — 집중도가 높은 관찰자입니다.</p>
+
+    <div style="position:relative;width:100%;height:250px;">
+      <canvas id="tlChart" role="img" aria-label="8회차 감각/편안함/딴생각 변화 추이"></canvas>
+    </div>
+    <div class="tl-legend">
+      <span><span class="ldot" style="background:var(--accent)"></span>감각 선명도 (Q3)</span>
+      <span><span class="ldot" style="background:var(--warm)"></span>세션 후 편안함 (Q8)</span>
+      <span><span class="ldot" style="background:#9b7bb5"></span>딴생각 수준 (Q7, 낮을수록 좋음)</span>
+    </div>
+
+    <div style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;">
+      <div style="background:var(--paper-warm);border-radius:8px;padding:14px 16px;">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-muted);margin-bottom:7px;">1~4회차</div>
+        <div style="font-size:13px;color:var(--ink-soft);line-height:1.8;">감각 '보통'. 다리 기울어짐 관찰. 주의가 하체에 집중.</div>
+      </div>
+      <div style="background:var(--paper-warm);border-radius:8px;padding:14px 16px;border-top:2px solid var(--accent);">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--accent);margin-bottom:7px;">5회차 전환점</div>
+        <div style="font-size:13px;color:var(--ink-soft);line-height:1.8;">'뚜렷하게' 첫 등장. 목 긴장 + 다리 기울어짐 함께 감지.</div>
+      </div>
+      <div style="background:var(--red-pale);border-radius:8px;padding:14px 16px;border-top:2px solid var(--red);">
+        <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--red);margin-bottom:7px;">8회차 · Q0 플래그</div>
+        <div style="font-size:13px;color:var(--ink-soft);line-height:1.8;">만성통증 악화. 그래도 세션 진행, 오른쪽 발끝 저림 기록.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04. 회차별 카드 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">회차별 기록</h2>
+    </div>
+    <p class="lead">이 분은 추가 문항(호흡·감정·감각확장)을 7회나 응답하셨습니다. 데이터가 가장 풍부합니다.</p>
+
+    <div class="session-grid">
+
+      <div class="sc">
+        <div class="sc-hd"><span class="sc-num">SESSION 01</span><span class="sc-date">04.13 · 04시</span></div>
+        <div class="sc-region">팔/손 · 다리/발</div>
+        <div class="sc-attention">한 곳에 계속 머묾</div>
+        <div class="sc-dots"><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot e"></div><div class="sc-dot e"></div></div>
+        <div class="sc-lr left">← 왼쪽 강함</div>
+        <div class="sc-note">왼쪽 다리가 바닥에 닿음</div>
+      </div>
+
+      <div class="sc">
+        <div class="sc-hd"><span class="sc-num">SESSION 02</span><span class="sc-date">04.14 · 05시</span></div>
+        <div class="sc-region">목·어깨·골반·팔·다리</div>
+        <div class="sc-attention">한 곳→점점 넓어짐</div>
+        <div class="sc-dots"><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot e"></div><div class="sc-dot e"></div></div>
+        <div class="sc-lr left">← 왼쪽 강함</div>
+        <div class="sc-note">다리가 왼쪽으로 완전히 눕혀짐. 오른쪽 어깨 찌릿</div>
+        <div class="sc-extra">추가3: 감각 확장 경험 ✓</div>
+      </div>
+
+      <div class="sc">
+        <div class="sc-hd"><span class="sc-num">SESSION 03</span><span class="sc-date">04.15 · 05시</span></div>
+        <div class="sc-region">골반 · 다리/발 · 전체</div>
+        <div class="sc-attention">한 곳→점점 넓어짐</div>
+        <div class="sc-dots"><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot e"></div><div class="sc-dot e"></div></div>
+        <div class="sc-lr left">← 왼쪽 강함</div>
+        <div class="sc-note">오늘은 다리가 오른쪽으로 완전히 눕혀졌음</div>
+        <div class="sc-extra">추가3: 감각 확장 경험 ✓</div>
+      </div>
+
+      <div class="sc" style="border-top:2px solid var(--accent);">
+        <div class="sc-hd"><span class="sc-num">SESSION 04</span><span class="sc-date">04.16 · 04시</span></div>
+        <div class="sc-region">팔/손 · 다리/발</div>
+        <div class="sc-attention">두세 곳 사이를 오감</div>
+        <div class="sc-dots"><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot e"></div><div class="sc-dot e"></div></div>
+        <div class="sc-lr right">→ 오른쪽 강함</div>
+        <div class="sc-note">다리가 한쪽으로 기울어지는 현상이 거의 없어짐</div>
+        <div class="sc-extra">추가3: 감각 확장 경험 ✓</div>
+      </div>
+
+      <div class="sc" style="border-top:2px solid var(--accent);">
+        <div class="sc-hd"><span class="sc-num">SESSION 05</span><span class="sc-date">04.17 · 04시</span></div>
+        <div class="sc-region">머리·목·어깨·골반·다리</div>
+        <div class="sc-attention">두세 곳 사이를 오감</div>
+        <div class="sc-dots"><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot e"></div></div>
+        <div class="sc-lr left">← 왼쪽 강함</div>
+        <div class="sc-note">목뒤로 긴장감. 왼쪽 다리가 조금 기울어졌다</div>
+        <div class="sc-extra">추가3: 감각 확장 경험 ✓</div>
+      </div>
+
+      <div class="sc">
+        <div class="sc-hd"><span class="sc-num">SESSION 06</span><span class="sc-date">04.18 · 04시</span></div>
+        <div class="sc-region">목·어깨·골반·팔·다리</div>
+        <div class="sc-attention">두세 곳 사이를 오감</div>
+        <div class="sc-dots"><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot e"></div></div>
+        <div class="sc-lr right">→ 오른쪽 강함</div>
+        <div class="sc-note">다리가 오른쪽으로 기울어짐</div>
+        <div class="sc-extra">추가3: 확장 없음</div>
+      </div>
+
+      <div class="sc">
+        <div class="sc-hd"><span class="sc-num">SESSION 07</span><span class="sc-date">04.22 · 04시</span></div>
+        <div class="sc-region">팔/손 · 다리/발</div>
+        <div class="sc-attention">두세 곳 사이를 오감</div>
+        <div class="sc-dots"><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot e"></div><div class="sc-dot e"></div></div>
+        <div class="sc-lr right">→ 오른쪽 강함</div>
+        <div class="sc-note">오른쪽 발끝에 약한 통증이 있었다</div>
+        <div class="sc-extra">추가3: 모르겠음</div>
+      </div>
+
+      <div class="sc flagged-card">
+        <div class="sc-hd"><span class="sc-num">SESSION 08</span><span class="sc-date">04.23 · 04시</span></div>
+        <div class="sc-region">목·어깨·골반·팔·다리</div>
+        <div class="sc-attention">두세 곳 사이를 오감</div>
+        <div class="sc-dots"><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot f"></div><div class="sc-dot e"></div><div class="sc-dot e"></div></div>
+        <div class="sc-lr right">→ 오른쪽 강함</div>
+        <div class="sc-note">오른쪽 발끝이 저릿했음</div>
+        <span class="sc-flag">Q0 · 만성통증 악화</span>
+        <div class="sc-extra">추가3: 감각 확장 경험 ✓</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 05. 추가 문항 — 이 분만의 데이터 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">추가 관찰 문항 응답 — 이 분만의 기록</h2>
+    </div>
+    <p class="lead">선택 사항인 추가 3문항을 7회 연속 응답하셨습니다. 5명 중 유일합니다. 이 데이터가 풍부한 해석을 가능하게 합니다.</p>
+
+    <div class="extra-box">
+      <div class="extra-title">추가 관찰 3문항 · 7회 응답 결과</div>
+
+      <div class="extra-row">
+        <div class="extra-q">추가 1</div>
+        <div class="extra-content">
+          <div class="extra-label">세션 중 호흡이 의식되었나요?</div>
+          <div class="extra-bars">
+            <div class="extra-bar" style="width:72px;background:var(--accent);"></div>
+            <div class="extra-bar" style="width:10px;background:var(--paper-dark);"></div>
+            <div class="extra-val">의식됨 5회 · 의식안됨 1회 · 미응답 1회</div>
+          </div>
+          <div class="extra-note">호흡을 의식하지 말라는 프로토콜에서 5회나 호흡이 의식됐습니다. 자연스럽게 일어난 현상으로 기록합니다.</div>
+        </div>
+      </div>
+
+      <div class="extra-row">
+        <div class="extra-q">추가 2</div>
+        <div class="extra-content">
+          <div class="extra-label">세션 중 감정 변화가 느껴졌나요?</div>
+          <div class="extra-bars">
+            <div class="extra-bar" style="width:10px;background:var(--accent);"></div>
+            <div class="extra-bar" style="width:72px;background:var(--paper-dark);"></div>
+            <div class="extra-val">감정변화 0회 · 없음 7회</div>
+          </div>
+          <div class="extra-note">7회 전부 감정 변화 없음. 신체 감각과 감정이 분리된 관찰 방식입니다. 몸에만 집중하는 유형.</div>
+        </div>
+      </div>
+
+      <div class="extra-row">
+        <div class="extra-q">추가 3</div>
+        <div class="extra-content">
+          <div class="extra-label">처음엔 좁다가 나중엔 넓어진 경험이 있었나요?</div>
+          <div class="extra-bars">
+            <div class="extra-bar" style="width:58px;background:var(--accent);"></div>
+            <div class="extra-bar" style="width:10px;background:var(--paper-dark);"></div>
+            <div class="extra-bar" style="width:10px;background:var(--warm);"></div>
+            <div class="extra-val">경험함 4회 · 없음 1회 · 모르겠음 1회</div>
+          </div>
+          <div class="extra-note">기초 설문에서 "가끔 있다"고 했는데, 실제로는 7회 중 4회. 예측보다 훨씬 자주 일어났습니다. 감각 확장 잠재력이 높은 유형입니다.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 06. 직접 쓰신 말 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">직접 쓰신 말들</h2>
+    </div>
+    <p class="lead">8회 자유 기록을 그대로 옮겼습니다. 다리의 기울어짐이 중심 주제입니다.</p>
+
+    <div class="notes-grid">
+      <div class="note-card"><div class="note-seq">SESSION 01 · 04.13</div><div class="note-text">"왼쪽 다리가 바닥에 닿음"</div></div>
+      <div class="note-card"><div class="note-seq">SESSION 02 · 04.14</div><div class="note-text">"다리가 왼쪽으로 완전히 눕혀짐.<br>오른쪽 어깨가 한번 찌릿함"</div></div>
+      <div class="note-card"><div class="note-seq">SESSION 03 · 04.15</div><div class="note-text">"오늘은 다리가 오른쪽으로<br>완전히 눕혀졌음"</div></div>
+      <div class="note-card hi"><div class="note-seq">SESSION 04 · 04.16 — 전환</div><div class="note-text">"다리가 한쪽으로 기울어지는<br>현상이 거의 없어짐"</div><div class="note-meta">3회간 관찰 후 자연 변화 기록</div></div>
+      <div class="note-card"><div class="note-seq">SESSION 05 · 04.17</div><div class="note-text">"목뒤로 긴장감이 느껴졌다.<br>왼쪽 다리가 조금 기울어졌다"</div></div>
+      <div class="note-card"><div class="note-seq">SESSION 06 · 04.18</div><div class="note-text">"다리가 오른쪽으로 기울어짐"</div></div>
+      <div class="note-card watch"><div class="note-seq">SESSION 07 · 04.22</div><div class="note-text">"오른쪽 발끝에 약한 통증이<br>있었다"</div></div>
+      <div class="note-card watch"><div class="note-seq">SESSION 08 · 04.23 · Q0 플래그</div><div class="note-text">"오른쪽 발끝이 저릿했음"</div><div class="note-meta" style="color:var(--red);">만성통증 악화 있던 날</div></div>
+    </div>
+
+    <div style="margin-top:20px;padding:20px 24px;background:var(--paper-warm);border-radius:8px;border-left:3px solid var(--accent);">
+      <div style="font-size:13px;color:var(--ink-soft);line-height:2;">
+        <strong>이 8개의 기록에 하나의 이야기가 있습니다.</strong><br>
+        1~3회: 다리가 크게 기울어진다 (왼쪽, 왼쪽, 오른쪽 순서로 번갈아)<br>
+        4회: 기울어지는 현상이 거의 없어진다<br>
+        5~8회: 다시 기울어짐이 돌아오고, 발끝으로 감각이 이동한다<br><br>
+        판단하지 않습니다. 하지만 이 몸이 10일 동안 무언가를 스스로 기록하고 있었다는 것은 분명합니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- 07. 군집 비교 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2 class="section-title">참여자 5명과 비교하면</h2>
+    </div>
+
+    <div class="cluster-intro">
+      <div class="ci-title">군집 분석 · n=5 · 정성 분류</div>
+      <div class="ci-text">
+        5명을 <em>감각 선명도 · 주의 확장 패턴 · 세션 후 편안함 · 지속성</em> 4가지로 분류했습니다.<br>
+        benz1010101010은 하체 집중형 국소 감지자 유형입니다. ytkim1004와 가장 다른 패턴을 보입니다.
+      </div>
+    </div>
+
+    <div class="cluster-cards">
+
+      <div class="cc you">
+        <div class="cc-type-label" style="color:var(--accent);">TYPE B &nbsp;<span class="cc-you-badge">← 당신</span></div>
+        <div class="cc-name">조용하고 집중된 감지자</div>
+        <div class="cc-members">benz1010101010</div>
+        <div class="cc-row"><div class="cc-label">감각 선명도</div><div class="cc-bar-wrap"><div class="cc-bar" style="width:66%;background:var(--accent)"></div></div><div class="cc-val">3.3</div></div>
+        <div class="cc-row"><div class="cc-label">주의 확장</div><div class="cc-bar-wrap"><div class="cc-bar" style="width:48%;background:var(--accent)"></div></div><div class="cc-val">2.4</div></div>
+        <div class="cc-row"><div class="cc-label">세션 후 편안</div><div class="cc-bar-wrap"><div class="cc-bar" style="width:80%;background:var(--accent)"></div></div><div class="cc-val">4.0</div></div>
+        <div class="cc-row"><div class="cc-label">지속성</div><div class="cc-bar-wrap"><div class="cc-bar" style="width:67%;background:var(--accent)"></div></div><div class="cc-val">8회</div></div>
+        <div class="cc-row"><div class="cc-label">딴생각</div><div class="cc-bar-wrap"><div class="cc-bar" style="width:54%;background:var(--accent)"></div></div><div class="cc-val">2.7↓</div></div>
+        <div class="cc-desc">감각이 하체에 집중. 주의가 전체로 퍼지기보다 국소 부위에 머묾. 딴생각이 5명 중 가장 적음 — 조용하고 집중된 관찰자. 세션 후 편안함은 가장 높음.</div>
+      </div>
+
+      <div class="cc">
+        <div class="cc-type-label" style="color:var(--green);">TYPE A (비교)</div>
+        <div class="cc-name">넓고 안정된 감지자</div>
+        <div class="cc-members">ytkim1004</div>
+        <div class="cc-row"><div class="cc-label">감각 선명도</div><div class="cc-bar-wrap"><div class="cc-bar" style="width:75%;background:var(--green)"></div></div><div class="cc-val">3.7</div></div>
+        <div class="cc-row"><div class="cc-label">주의 확장</div><div class="cc-bar-wrap"><div class="cc-bar" style="width:86%;background:var(--green)"></div></div><div class="cc-val">3.5</div></div>
+        <div class="cc-row"><div class="cc-label">세션 후 편안</div><div class="cc-bar-wrap"><div class="cc-bar" style="width:78%;background:var(--green)"></div></div><div class="cc-val">3.9</div></div>
+        <div class="cc-row"><div class="cc-label">지속성</div><div class="cc-bar-wrap"><div class="cc-bar" style="width:100%;background:var(--green)"></div></div><div class="cc-val">12회</div></div>
+        <div class="cc-row"><div class="cc-label">딴생각</div><div class="cc-bar-wrap"><div class="cc-bar" style="width:74%;background:var(--green)"></div></div><div class="cc-val">3.7↑</div></div>
+        <div class="cc-desc">복부 중심, 몸 전체로 확장. 딴생각이 많아도 감각은 뚜렷. benz와 정반대 방향 — 분산형 vs 집중형.</div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:20px;position:relative;width:100%;height:260px;background:var(--paper-warm);border-radius:10px;padding:20px;">
+      <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--ink-muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;">핵심 변수 비교 · benz vs 전체 평균</div>
+      <canvas id="radarChart" role="img" aria-label="benz1010101010와 전체 평균 비교"></canvas>
+    </div>
+  </div>
+
+  <!-- 08. 패턴 요약 -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2 class="section-title">이 데이터가 말하는 것</h2>
+    </div>
+    <div class="pattern-box">
+      <div class="pb-title">Baseline 패턴 요약 · benz1010101010 · 판단 없이 기록만</div>
+      <div class="pb-grid">
+        <div><div class="pb-label">주요 감각 부위</div><div class="pb-value"><em>다리/발</em> 8회 전부 · 하체 중심</div></div>
+        <div><div class="pb-label">좌우 패턴</div><div class="pb-value"><em class="w">매회 다름</em> · 왼3 / 균형2 / 오른3</div></div>
+        <div><div class="pb-label">주의 패턴</div><div class="pb-value">국소 집중 → 점점 확장 경향</div></div>
+        <div><div class="pb-label">딴생각 수준</div><div class="pb-value"><em>5명 중 최저</em> · 조용한 관찰자</div></div>
+        <div><div class="pb-label">핵심 이야기</div><div class="pb-value">다리 기울어짐 → <em>없어짐</em> → 돌아옴</div></div>
+        <div><div class="pb-label">감각 확장 경험</div><div class="pb-value">7회 중 <em>4회</em> · 본인 예측 초과</div></div>
+        <div><div class="pb-label">군집 유형</div><div class="pb-value"><em>TYPE B</em> — 조용하고 집중된 감지자</div></div>
+        <div><div class="pb-label">주목할 것</div><div class="pb-value"><em class="w">불편 부위</em>가 데이터에 직접 반영</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="report-footer">
+    <span>신체감각인식패턴연구 E WAN · Baseline Report v1.0</span>
+    <span>풍림전자주식회사 · 2026.04.26</span>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script>
+const accent='#4a6fa5', warm='#b8794a', purple='#9b7bb5', green='#5c7a5c';
+const muted='#8a8780', grid='rgba(26,25,22,0.07)', mono="'DM Mono',monospace";
+
+// 타임라인
+new Chart(document.getElementById('tlChart'),{
+  type:'line',
+  data:{
+    labels:['1회','2회','3회','4회','5회','6회','7회','8회*'],
+    datasets:[
+      {label:'감각 선명도',data:[3,3,3,3,4,4,3,3],
+       borderColor:accent,backgroundColor:'rgba(74,111,165,0.08)',
+       borderWidth:2.5,pointBackgroundColor:accent,pointRadius:5,tension:0.35,fill:true},
+      {label:'세션 후 편안함',data:[4,4,4,4,4,4,4,4],
+       borderColor:warm,borderWidth:2,pointBackgroundColor:warm,
+       pointRadius:4,tension:0.2,borderDash:[5,4],fill:false},
+      {label:'딴생각(낮을수록↓)',data:[2,3,3,3,2,3,3,3],
+       borderColor:purple,borderWidth:1.5,pointBackgroundColor:purple,
+       pointRadius:4,tension:0.35,borderDash:[2,3],fill:false}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:(c)=>{
+      const m={1:'거의없음',2:'적음',3:'보통',4:'뚜렷/편안',5:'최고'};
+      return ` ${c.dataset.label}: ${m[c.raw]||c.raw}`;
+    }}}},
+    scales:{
+      y:{min:1,max:5,grid:{color:grid},border:{display:false},
+        ticks:{font:{family:mono,size:10},color:muted,stepSize:1,
+          callback:v=>({1:'거의없음',2:'적음',3:'보통',4:'뚜렷',5:'최고'}[v]||'')}},
+      x:{grid:{display:false},border:{display:false},
+        ticks:{font:{family:mono,size:10},color:muted}}
+    }
+  }
+});
+
+// 레이더
+new Chart(document.getElementById('radarChart'),{
+  type:'radar',
+  data:{
+    labels:['감각 선명도','주의 확장','세션 후 편안','지속성','집중도(딴생각↓)'],
+    datasets:[
+      {label:'benz1010101010',
+       data:[3.29, 2.43, 4.0, 3.2, 4.6],
+       borderColor:accent,backgroundColor:'rgba(74,111,165,0.15)',
+       borderWidth:2.5,pointBackgroundColor:accent,pointRadius:5},
+      {label:'전체 평균',
+       data:[3.14, 3.07, 3.43, 3.4, 3.5],
+       borderColor:muted,backgroundColor:'rgba(138,135,128,0.07)',
+       borderWidth:1.5,pointBackgroundColor:muted,pointRadius:3,borderDash:[4,3]}
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{r:{
+      min:0,max:5,grid:{color:grid},
+      ticks:{font:{family:mono,size:9},color:muted,stepSize:1,backdropColor:'transparent'},
+      pointLabels:{font:{family:"'Noto Sans KR',sans-serif",size:11},color:'#4a4844'}
+    }}
+  }
+});
+</script>
+</body>
+</html>
