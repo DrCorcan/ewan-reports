@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Baseline | E·WAN</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: sans-serif;
+      overflow-x: hidden;
+      background-color: #f6f1e8;
+      color: #6f5c45;
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      background-image: url('bg-baseline.jpg');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px;
+    }
+
+    .overlay {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(2px);
+      border-radius: 22px;
+      padding: 28px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 18px;
+      letter-spacing: 3px;
+      margin-bottom: 26px;
+      color: #a88c68;
+      font-weight: 500;
+    }
+
+    h1 {
+      font-size: 30px;
+      line-height: 1.4;
+      margin-bottom: 18px;
+      color: #6e5a44;
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.9;
+      margin-bottom: 34px;
+      color: #786754;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      padding: 16px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      font-size: 16px;
+      transition: 0.2s ease;
+    }
+
+    .primary {
+      background-color: #c7ab84;
+      color: white;
+    }
+
+    .secondary {
+      background-color: rgba(255,255,255,0.72);
+      color: #6f5c45;
+      border: 1px solid rgba(111,92,69,0.12);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    @media (min-width: 768px) {
+      .overlay {
+        max-width: 520px;
+        padding: 42px;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      p {
+        font-size: 17px;
+      }
+
+      .btn {
+        font-size: 17px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+
+    <div class="overlay">
+
+      <div class="logo">E·WAN</div>
+
+      <h1>Baseline 시작</h1>
+
+      <p>
+        현재의 몸 감각 상태를 기록합니다.<br>
+        기초 기록 이후에는 일일 감각 기록을 이어갈 수 있습니다.
+      </p>
+
+      <a href="#" class="btn primary">
+        기초 기록 시작하기
+      </a>
+
+      <a href="#" class="btn secondary">
+        일일 감각 기록하기
+      </a>
+
+    </div>
+
+  </section>
+
+</body>
+</html>
