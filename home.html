@@ -80,7 +80,23 @@
       border: 1px solid rgba(122,103,79,0.15);
     }
 
-    .btn:hover {
+    .quick-daily {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 10;
+      text-decoration: none;
+      background-color: rgba(199, 171, 132, 0.92);
+      color: white;
+      padding: 13px 16px;
+      border-radius: 999px;
+      font-size: 14px;
+      box-shadow: 0 6px 18px rgba(80, 60, 40, 0.16);
+      backdrop-filter: blur(3px);
+    }
+
+    .btn:hover,
+    .quick-daily:hover {
       transform: translateY(-1px);
     }
 
@@ -100,6 +116,13 @@
 
       .btn {
         font-size: 17px;
+      }
+
+      .quick-daily {
+        right: 32px;
+        bottom: 32px;
+        font-size: 15px;
+        padding: 14px 18px;
       }
     }
   </style>
@@ -129,6 +152,10 @@
     </div>
 
   </section>
+
+  <a href="daily.html" class="quick-daily">
+    오늘의 기록
+  </a>
 
 </body>
 </html>
