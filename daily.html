@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>오늘의 감각 기록 | E·WAN</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: sans-serif;
+      background-color: #f6f1e8;
+      color: #6f5c45;
+      overflow-x: hidden;
+    }
+
+    .hero {
+      position: relative;
+      width: 100%;
+      min-height: 100vh;
+      background-image: url('bg-baseline.jpg');
+      background-size: cover;
+      background-position: center bottom;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 72px 28px 48px;
+      text-align: center;
+    }
+
+    .panel {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.18);
+      backdrop-filter: blur(2px);
+      border-radius: 24px;
+      padding: 30px 24px;
+    }
+
+    h1 {
+      font-size: 30px;
+      line-height: 1.35;
+      font-weight: 500;
+      color: #6e5a44;
+      margin-bottom: 18px;
+    }
+
+    p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: #76644f;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 16px;
+      background-color: #c7ab84;
+      color: #fff;
+    }
+
+    .logo {
+      font-size: 22px;
+      letter-spacing: 4px;
+      color: #b69a73;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+
+    @media (min-width: 768px) {
+      .hero {
+        padding-top: 90px;
+      }
+
+      .panel {
+        max-width: 520px;
+        padding: 42px 38px;
+      }
+
+      h1 {
+        font-size: 40px;
+      }
+
+      p {
+        font-size: 17px;
+      }
+
+      .btn {
+        font-size: 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+
+    <div class="panel">
+
+      <h1>오늘의 감각 기록</h1>
+
+      <p>
+        오늘의 몸 감각 상태를<br>
+        천천히 기록해보세요.
+      </p>
+
+      <a href="https://docs.google.com/forms/d/1fwEOxfFc7WDn_m0cYSRJKE7CFFadEk54du86O41qrBQ/viewform" class="btn">
+        일일 감각 기록하기
+      </a>
+
+    </div>
+
+    <div class="logo">E·WAN</div>
+
+  </section>
+
+</body>
+</html>
